@@ -199,10 +199,3 @@ class TestProductModel(unittest.TestCase):
         product = ProductFactory()
         product.id = None
         self.assertRaises(DataValidationError, product.update)
-
-    def test_invalid_Availability(self):
-        """Invalid Type for availability"""
-        product = ProductFactory()
-        product.available = None
-        product.create()
-        self.assertRaises(DataValidationError, product.available available)
