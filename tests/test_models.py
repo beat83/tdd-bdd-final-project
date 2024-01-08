@@ -194,8 +194,22 @@ class TestProductModel(unittest.TestCase):
         for product in found:
             self.assertEqual(product.category, category)
 
+    def find_by_price(self):
+        """It should Find a Product by Price"""
+        products = ProductFactory.create_batch(1)
+        for product in products:
+            product.create()
+        product.price = products[0].price.isinstance(19.00, float)
+        count = len([product for product in products if product.price == price])
+        found = Product.find_by_price(isinstance, 19.00, Decimal)
+        self.assertEqual(found.count(), count)
+        for product in found:
+            self.assertEqual(product.price, price)
+
     def test_invalid_id_on_update(self):
         """Invalid ID"""
         product = ProductFactory()
         product.id = None
         self.assertRaises(DataValidationError, product.update)
+
+    
